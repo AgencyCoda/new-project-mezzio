@@ -25,6 +25,7 @@ composer create-project mezzio/mezzio-skeleton name_of_project
 ```bash
 composer require agencycoda/mia-core-mezzio
 composer require agencycoda/mia-eloquent-mezzio
+composer require mezzio/mezzio-cors
 ```
 5. Abrir public/index.php
 ```php
@@ -33,4 +34,23 @@ $container = require 'config/container.php';
 
 // Inicializar Database
 Mia\Database\Eloquent::install($container);
+```
+6. Crear archivo "eloquent.global.php" en "config/autoload":
+```php
+return [
+    'eloquent' => [
+        'driver'    => 'mysql',
+        'host'      => 'localhost:8889',
+        'database'  => 'expressive_test',
+        'username'  => 'root',
+        'password'  => 'root',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_general_ci',
+    ]
+];
+```
+
+## Como iniciar servidor para testear
+```bash
+composer run --timeout=0 serve
 ```
