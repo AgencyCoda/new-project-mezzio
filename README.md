@@ -11,13 +11,18 @@ composer create-project mezzio/mezzio-skeleton name_of_project
 - Whoops
 3. Agregar repositorios en el composer.json:
 ```js
-"repositories": [{
+"repositories": [
+        {
             "type": "git",
             "url": "https://github.com/agencycoda/mia-eloquent-mezzio.git"
         },
         {
             "type": "git",
-            "url": "https://github.com/MobileIA/mia-core-expressive.git"
+            "url": "https://github.com/agencycoda/mia-core-mezzio.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
         }
     ]
 ```
@@ -25,6 +30,7 @@ composer create-project mezzio/mezzio-skeleton name_of_project
 ```bash
 composer require agencycoda/mia-core-mezzio
 composer require agencycoda/mia-eloquent-mezzio
+composer require agencycoda/mia-auth-mezzio
 composer require mezzio/mezzio-cors
 ```
 5. Abrir public/index.php
