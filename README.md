@@ -62,7 +62,54 @@ composer run --timeout=0 serve
 ```
 
 ## Como crear un modulo y subirlo a composer
-1. Crear repositorio en Github dentro de la organización: AgencyCoda
+1. Crear repositorio en Github dentro de la organización: "AgencyCoda"
+
 MUY IMPORTANTE: El nombre del paquete tiene que empezar con "mia-" y terminar con "-mezzio", Ejemplo: "mia-pushbullet-mezzio"
 
 ![Imagen](https://raw.githubusercontent.com/AgencyCoda/new-project-mezzio/main/images/modulo_1.png)
+
+2. Clonar repositorio:
+```bash
+git clone https://github.com/AgencyCoda/mia-pushbullet-mezzio.git
+```
+
+3. Crear archivo composer.json, Estructura de ejemplo:
+```json
+{
+    "name": "agencycoda/mia-pushbullet-mezzio",
+    "description": "The library for Mezzio",
+    "version": "0.0.1",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [{
+        "name": "Matias Camiletti",
+        "homepage": "https://agencycoda.com"
+    }],
+    "require": {
+        "php": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mia\\PushBullet\\": "src/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S 0.0.0.0:8080 -t example/"
+    }
+}
+```
+
+Reemplazar name y autoload
+
+4. Crear carpeta "src".
+5. Dentro de la carpeta src, subir/agregar los archivos de la libreria. Ejemplo de estructura:
+```php
+- src/
+    - PushBulletHelper.php
+    - Handler/
+        - PushHandler.php
+```
+
+6. MUY IMPORTANTE: no agregar en estas librerias datos de acceso, tokens, contraseñas, etc.
+
+7. Si se quiere agregar codigo de ejemplo, pruebas, se puede crear la carpeta "example"
