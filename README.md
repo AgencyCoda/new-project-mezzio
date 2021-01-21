@@ -60,3 +60,9 @@ return [
 ```bash
 composer run --timeout=0 serve
 ```
+
+## Como crear un modulo y subirlo a composer
+1. Crear repositorio en Github dentro de la organización: AgencyCoda
+MUY IMPORTANTE: El nombre del paquete tiene que empezar con "mia-" y terminar con "-mezzio", Ejemplo: "mia-pushbullet-mezzio"
+
+![Imagen](https://raw.githubusercontent.com/AgencyCoda/new-project-mezzio/main/images/modulo_1.png)
