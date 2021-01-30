@@ -1,7 +1,7 @@
 # Creacion de proyecto para APIs
 1. Crear proyecto
 ```bash
-composer create-project mezzio/mezzio-skeleton name_of_project
+composer create-project agencycoda/mezzio-skeleton name_of_project
 ```
 2. Activar configuración personalizada:
 - Modular
