@@ -61,6 +61,11 @@ return [
 composer run --timeout=0 serve
 ```
 
+## Generar documentación con Swagger
+```bash
+./vendor/bin/openapi --format json --output public/swagger/swagger.json src config vendor/agencycoda
+```
+
 ## Como crear un modulo y subirlo a composer
 1. Crear repositorio en Github dentro de la organización: "AgencyCoda"
 
