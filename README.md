@@ -9,55 +9,23 @@ composer create-project agencycoda/mezzio-skeleton name_of_project
 - Fast Route
 - None template
 - Whoops
-3. Agregar repositorios en el composer.json:
-```js
-"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/agencycoda/mia-eloquent-mezzio.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/agencycoda/mia-core-mezzio.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
-        }
-    ]
-```
-4. Configuración de la base de datos:
-```bash
-composer require agencycoda/mia-core-mezzio
-composer require agencycoda/mia-eloquent-mezzio
-composer require agencycoda/mia-auth-mezzio
-composer require mezzio/mezzio-cors
-```
-5. Abrir public/index.php
+3. Configuracion de Datos de Base de datos y demas plataformas en "app.yaml":
+4. Aplicar rutas de librerias en "routes.php":
 ```php
-/** @var \Psr\Container\ContainerInterface $container */
-$container = require 'config/container.php';
+    /** AUTHENTICATION **/
+    $app->route('/mia-auth/login', [Mia\Auth\Handler\LoginHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.login');
+    $app->route('/mia-auth/register', [\Mia\Mail\Handler\SendgridHandler::class, new RegisterHandler(false)], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.register');
+    $app->route('/mia-auth/update-profile', [Mia\Auth\Handler\UpdateProfileHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.update-profile');
+    $app->route('/mia-auth/recovery', [\Mia\Mail\Handler\SendgridHandler::class, Mia\Auth\Handler\MiaRecoveryHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.recovery');
+    $app->route('/mia-auth/change-password-recovery', [Mia\Auth\Handler\MiaPasswordRecoveryHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.change-password-recovery');
+    $app->route('/mia-auth/me', [\Mia\Auth\Handler\AuthInternalHandler::class, Mia\Auth\Handler\FetchProfileHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.me');
+    
+    //$app->route('/mia-auth/google-signin', [Mia\Auth\Handler\GoogleSignInHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.google-signin');
+    //$app->route('/mia-auth/apple-signin', [Mia\Auth\Handler\AppleSignInHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.apple-signin');
+    $app->route('/mia-auth/register-device', [\Mia\Auth\Handler\AuthInternalHandler::class, Mia\Auth\Handler\RegisterDeviceHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.register-device');
 
-// Inicializar Database
-Mia\Database\Eloquent::install($container);
-```
-6. Crear archivo "eloquent.global.php" en "config/autoload":
-```php
-return [
-    'eloquent' => [
-        'driver'    => 'mysql',
-        'host'      => 'localhost:8889',
-        'database'  => 'expressive_test',
-        'username'  => 'root',
-        'password'  => 'root',
-        'charset'   => 'utf8',
-        'collation' => 'utf8_general_ci',
-    ]
-];
-```
+    //$app->route('/mia-auth/role/list', [Mia\Auth\Handler\Role\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia_auth.role-list');
 
-## Aplicar Rutas de librerias
-```php
     /** EMAILs Templates  */
     $app->route('/mia-mail-admin/list', [\Mia\Mail\Handler\FetchTemplatesHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-mail.list');
     $app->route('/mia-mail-admin/save', [\Mia\Mail\Handler\SaveTemplateHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-mail.save');
